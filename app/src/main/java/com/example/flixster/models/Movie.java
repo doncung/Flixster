@@ -16,7 +16,7 @@ public class Movie {
     String backdropPath;
     Double voteAverage;
     Integer id;
-    Integer movieId;
+    String movieId;
 
     public Movie() {}
 
@@ -62,11 +62,11 @@ public class Movie {
         return id;
     }
 
-    public Integer getMovieId() {
+    public String getMovieId() {
         return movieId;
     }
 
-    public void setMovieId(Integer movieId) {
+    public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
 }

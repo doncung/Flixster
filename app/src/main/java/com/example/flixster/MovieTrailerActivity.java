@@ -21,24 +21,25 @@ import okhttp3.Headers;
 
 public class MovieTrailerActivity extends YouTubeBaseActivity {
 
+    final String API_KEY = "AIzaSyARF9mmfbwKyZFDoFUJxP9VOys4kivI098";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_trailer);
 
-        // temporary test video id-- TODO replace with movie trailer vdieo id
-        final String videoId = "tKodtNFpzBA";
-
+        // temporary test video id--
+        final String videoId = getIntent().getStringExtra("movieId");
+        Log.e("video id", "it is:" + videoId.toString());
         // resolve the player view from the layout
         YouTubePlayerView playerView = (YouTubePlayerView) findViewById(R.id.player);
 
         // initialize with API key
-        playerView.initialize("AIzaSyARF9mmfbwKyZFDoFUJxP9VOys4kivI098", new YouTubePlayer.OnInitializedListener() {
+        playerView.initialize(API_KEY, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider,
                                                 YouTubePlayer youTubePlayer, boolean b) {
                 // do any work here to cue video, play video, etc.
-                youTubePlayer.cueVideo(videoId);
+                youTubePlayer.loadVideo(videoId);
             }
 
             @Override
