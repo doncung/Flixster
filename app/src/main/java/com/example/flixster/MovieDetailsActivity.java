@@ -35,6 +35,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     TextView tvOverview;
     RatingBar rbVoteAverage;
     ImageView ivPoster;
+    TextView tvRuntime;
+    TextView tvBudget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,20 +44,38 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
 
         //set view objects
-        tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvOverview = (TextView) findViewById(R.id.tvOverview);
-        rbVoteAverage = (RatingBar) findViewById(R.id.rbVoteAverage);
-        ivPoster = (ImageView) findViewById(R.id.ivPoster);
+        tvTitle = findViewById(R.id.tvTitle);
+        tvOverview = findViewById(R.id.tvOverview);
+        rbVoteAverage = findViewById(R.id.rbVoteAverage);
+        ivPoster = findViewById(R.id.ivPoster);
+        tvRuntime = findViewById(R.id.tvRuntime);
+        tvBudget = findViewById(R.id.tvBudget);
 
         // unwrap the movie that has been passed through the intent
-        movie = (Movie) Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
+        movie = Parcels.unwrap(getIntent().getParcelableExtra(Movie.class.getSimpleName()));
         Log.d("MovieDetailsActivity", String.format("Showing details for '%s'", movie.getTitle()));
 
-        // set the title and overview
+        // set the title, overview, runtime, budget fields
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
 
-        // API call
+        if(movie.getRuntime() != 0) {
+            tvRuntime.setText(movie.getRuntime());
+        } else
+        {
+            tvRuntime.append("unknown");
+        }
+
+        //tvRuntime.setText(movie.getRuntime());
+
+        if(movie.getBudget() != 0) {
+            tvBudget.setText(movie.getBudget());
+        } else
+        {
+            tvBudget.append("unknown");
+        }
+
+        // API call for YouTube propagation
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("https://api.themoviedb.org/3/movie/"+movie.getId()+"/videos?api_key=bed14e337854ed86aad3f65613a20233", new JsonHttpResponseHandler() {
             @Override
@@ -81,7 +101,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
-        //listener
+        // listener
         ivPoster.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //create an intent to launch the movie trailer activity

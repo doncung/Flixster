@@ -10,13 +10,9 @@ import java.util.List;
 
 @Parcel
 public class Movie {
-    String posterPath;
-    String title;
-    String overview;
-    String backdropPath;
+    String posterPath, title, overview, backdropPath, movieId;
+    Integer id, runtime, budget;
     Double voteAverage;
-    Integer id;
-    String movieId;
 
     public Movie() {}
 
@@ -27,6 +23,8 @@ public class Movie {
         overview = jsonObject.getString("overview");
         voteAverage = jsonObject.getDouble("vote_average");
         id = jsonObject.getInt("id");
+        runtime = jsonObject.isNull("runtime") ? 0 : jsonObject.getInt("runtime");
+        budget = jsonObject.isNull("budget") ? 0 : jsonObject.getInt("budget");
     }
 
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
@@ -66,7 +64,16 @@ public class Movie {
         return movieId;
     }
 
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public Integer getBudget() {
+        return budget;
+    }
+
     public void setMovieId(String movieId) {
         this.movieId = movieId;
     }
+
 }

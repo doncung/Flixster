@@ -3,6 +3,8 @@ package com.example.flixster.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.palette.graphics.Palette;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -97,6 +100,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                     .placeholder(placeholderImage)
                     .transform(new RoundedCorners(30))
                     .into(ivPoster);
+
+            //Beginning of an attempt to figure out dynamic coloring based on image palette
+            /*Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.car);
+
+            Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                @Override
+                public void onGenerated(Palette palette) {
+                    // Get the "vibrant" color swatch based on the bitmap
+                    Palette.Swatch vibrant = palette.getVibrantSwatch();
+                    if (vibrant != null) {
+                        // Set the background color of a layout based on the vibrant color
+                        itemView.setBackgroundColor(vibrant.getRgb());
+                        // Update the title TextView with the proper text color
+                        //titleView.setTextColor(vibrant.getTitleTextColor());
+                    }
+                }
+            });*/
+
         }
 
         @Override
@@ -107,7 +128,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             if (position != RecyclerView.NO_POSITION) {
                 //get the movie at that position in the list
                 Movie movie = movies.get(position);
-                //create an intent to display moviedetailsactivity
+                //create an intent to display Movie Details Activity
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
                 //pass the movie as an extra serialized via Parcels.wrap()
                 intent.putExtra(Movie.class.getSimpleName(), Parcels.wrap(movie));
