@@ -36,7 +36,7 @@ GIF created with [Imgur](https://imgur.com/).
 
 ## Notes
 
-I ran into challenges with the YouTube stretch functionality. I believe I almost have it! But I can't quite get it functioning.
+None
 
 ## Open-source libraries used
 
