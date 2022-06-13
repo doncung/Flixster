@@ -1,3 +1,5 @@
+This is just a test to see how PR would work with github.
+
 # Project 1 - Flixster
 
 **Flixster** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
